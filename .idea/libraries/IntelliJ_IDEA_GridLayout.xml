@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="IntelliJ IDEA GridLayout">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/intellij_forms_rt.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/postgresql-42.2.19.jre6.jar!/" />
+      <root url="jar://C:/aspectj1.9/lib/aspectjrt.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/aspectj-1.9.6.jar!/files/doc/runtime-apidocs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/intellij_forms_rt_src.zip!/" />
+    </SOURCES>
+  </library>
+</component>
