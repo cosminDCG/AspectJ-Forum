@@ -50,4 +50,13 @@ public class PostDTO {
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
     }
+
+    @Override
+    public String toString() {
+        return "PostDTO{" +
+                "userId=" + userId +
+                ", postText='" + postText + '\'' +
+                ", postDate=" + postDate +
+                '}';
+    }
 }
