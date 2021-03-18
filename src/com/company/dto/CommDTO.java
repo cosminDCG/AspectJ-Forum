@@ -6,6 +6,7 @@ public class CommDTO {
 
     private int commId;
     private int postId;
+    private UserDTO user;
     private String commText;
     private Date commDate;
 
@@ -39,5 +40,23 @@ public class CommDTO {
 
     public void setCommDate(Date commDate) {
         this.commDate = commDate;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "CommDTO{" +
+                "postId=" + postId +
+                ", user=" + user.getUserId() +
+                ", commText='" + commText + '\'' +
+                ", commDate=" + commDate +
+                '}';
     }
 }

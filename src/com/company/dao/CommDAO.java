@@ -1,6 +1,7 @@
 package com.company.dao;
 
 import com.company.dto.CommDTO;
+import com.company.dto.UserDTO;
 import com.company.utils.DbUtil;
 
 import java.sql.*;
@@ -22,13 +23,14 @@ public class CommDAO {
 
     public void addComment(CommDTO commDTO) {
         String sqlInsert = "" +
-                "INSERT INTO comentarii (post_id, comm_text, comm_date) VALUES (?, ?, ?)";
+                "INSERT INTO comentarii (post_id, user_id, comm_text, comm_date) VALUES (?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = dbConnection.prepareStatement(sqlInsert);
             ps.setInt(1, commDTO.getPostId());
-            ps.setString(2, commDTO.getCommText());
-            ps.setDate(3, (Date) commDTO.getCommDate());
+            ps.setInt(2, commDTO.getUser().getUserId());
+            ps.setString(3, commDTO.getCommText());
+            ps.setDate(4, (Date) commDTO.getCommDate());
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,6 +53,7 @@ public class CommDAO {
                 CommDTO commDTO = new CommDTO();
                 commDTO.setCommId(rs.getInt("comm_id"));
                 commDTO.setPostId(rs.getInt("post_id"));
+                commDTO.setUser(new UserDTO(rs.getInt("user_id")));
                 commDTO.setCommText(rs.getString("comm_text"));
                 commDTO.setCommDate(rs.getDate("comm_date"));
                 commDTOList.add(commDTO);

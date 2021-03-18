@@ -8,6 +8,13 @@ public class UserDTO {
     private String email;
     private String password;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(int userId) {
+        this.userId = userId;
+    }
+
     public int getUserId() {
         return userId;
     }

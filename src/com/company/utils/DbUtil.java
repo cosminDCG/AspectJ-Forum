@@ -1,5 +1,8 @@
 package com.company.utils;
 
+import com.company.exception.DbConnectionException;
+import com.company.exception.ErrorMessages;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -24,7 +27,7 @@ public class DbUtil {
                 String password = properties.getProperty(DB_PASSWORD_PROPERTY_NAME);
                 dbConnection = DriverManager.getConnection(connectionUrl, userName, password);
             } catch (IOException | SQLException e) {
-                e.printStackTrace();
+                throw new DbConnectionException(ErrorMessages.DB_CONNECTION_FAIL.getMessage());
             }
         }
         return dbConnection;
