@@ -1,45 +1,54 @@
 /*
- * Created by JFormDesigner on Fri Mar 12 18:28:00 EET 2021
+ * Created by JFormDesigner on Sat Mar 20 12:44:57 EET 2021
  */
 
-package com.company.forms.post;
+package com.company.forms.view;
 
-import java.awt.event.*;
-import java.time.Instant;
-import java.util.Date;
-import javax.swing.*;
-
+import com.company.dto.CommDTO;
 import com.company.dto.PostDTO;
 import com.company.dto.UserDTO;
 import com.company.forms.dashboard.Dashboard;
-import com.company.service.PostService;
-import net.miginfocom.swing.*;
+import com.company.service.CommService;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 /**
  * @author unknown
  */
-public class Post extends JFrame {
+public class ViewPost extends JFrame {
 
     private final UserDTO user;
+    private final PostDTO post;
 
-    public Post(UserDTO userDTO) {
+    public ViewPost(UserDTO userDTO, PostDTO postDTO) {
         initComponents();
         this.user = userDTO;
+        this.post = postDTO;
+        this.post.setComments(CommService.getInstance().getCommentsByPostId(this.post.getPostId()));
         nameLabel.setText(userDTO.getFirstName() + " " + userDTO.getLastName());
+        questionTextArea.setText(post.getPostText());
+        questionTextArea.setEditable(false);
+        initComments(this.post.getComments());
     }
 
-    private void addPostButtonActionPerformed(ActionEvent e) {
-        PostDTO postDTO = new PostDTO();
-        postDTO.setUserId(user.getUserId());
-        postDTO.setPostText(postTextArea.getText());
-        postDTO.setPostDate(Date.from(Instant.now()));
-        PostService.getInstance().addPost(postDTO);
+    private void initComments(List<CommDTO> commDTOList) {
+        int pos = 5;
+        for (CommDTO commDTO : commDTOList) {
 
-        JFrame dashboardFrame = new Dashboard(user);
-        dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dashboardFrame.setSize(400, 400);
-        dashboardFrame.setVisible(true);
-        this.dispose();
+        }
+
+        JTextField jtf = new JTextField();
+        JScrollPane jScrollPane = new JScrollPane();
+        jScrollPane.setViewportView(jtf);
+        getContentPane().add(jScrollPane, "cell 2 " + pos + " 32 2");
+        pos += 5;
+
+        JButton button = new JButton("Add comment");
+        getContentPane().add(button, "cell 32 " + pos);
     }
 
     private void backLabelMouseClicked(MouseEvent e) {
@@ -55,15 +64,30 @@ public class Post extends JFrame {
         // Generated using JFormDesigner Evaluation license - unknown
         backLabel = new JLabel();
         nameLabel = new JLabel();
-        postScrollPanel = new JScrollPane();
-        postTextArea = new JTextArea();
-        addPostButton = new JButton();
+        scrollPane1 = new JScrollPane();
+        questionTextArea = new JTextArea();
+        label1 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
             // columns
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
+            "[fill]" +
             "[fill]" +
             "[fill]" +
             "[fill]" +
@@ -105,21 +129,20 @@ public class Post extends JFrame {
             }
         });
         contentPane.add(backLabel, "cell 0 0 2 1");
-        contentPane.add(nameLabel, "cell 16 0 4 1");
+        contentPane.add(nameLabel, "cell 22 0 4 1");
 
-        //======== postScrollPanel ========
+        //======== scrollPane1 ========
         {
 
-            //---- postTextArea ----
-            postTextArea.setRows(4);
-            postScrollPanel.setViewportView(postTextArea);
+            //---- questionTextArea ----
+            questionTextArea.setRows(3);
+            scrollPane1.setViewportView(questionTextArea);
         }
-        contentPane.add(postScrollPanel, "cell 1 1 18 4");
+        contentPane.add(scrollPane1, "cell 2 1 32 2");
 
-        //---- addPostButton ----
-        addPostButton.setText("Add post");
-        addPostButton.addActionListener(e -> addPostButtonActionPerformed(e));
-        contentPane.add(addPostButton, "cell 18 5");
+        //---- label1 ----
+        label1.setText("Comments:");
+        contentPane.add(label1, "cell 2 3");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -129,8 +152,8 @@ public class Post extends JFrame {
     // Generated using JFormDesigner Evaluation license - unknown
     private JLabel backLabel;
     private JLabel nameLabel;
-    private JScrollPane postScrollPanel;
-    private JTextArea postTextArea;
-    private JButton addPostButton;
+    private JScrollPane scrollPane1;
+    private JTextArea questionTextArea;
+    private JLabel label1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

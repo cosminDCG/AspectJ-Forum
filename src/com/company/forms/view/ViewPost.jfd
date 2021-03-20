@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+			"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
 			"$rowConstraints": "[][][][][][][][][][]"
 		} ) {
 			name: "this"
@@ -19,27 +19,26 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "nameLabel"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 16 0 4 1"
+				"value": "cell 22 0 4 1"
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "postScrollPanel"
+				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTextArea" ) {
-					name: "postTextArea"
-					"rows": 4
+					name: "questionTextArea"
+					"rows": 3
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 1 18 4"
+				"value": "cell 2 1 32 2"
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "addPostButton"
-				"text": "Add post"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addPostButtonActionPerformed", true ) )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Comments:"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 18 5"
+				"value": "cell 2 3"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 410, 300 )
+			"size": new java.awt.Dimension( 400, 300 )
 		} )
 	}
 }

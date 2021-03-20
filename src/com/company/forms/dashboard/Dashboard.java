@@ -4,7 +4,6 @@
 
 package com.company.forms.dashboard;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
@@ -13,6 +12,7 @@ import com.company.forms.login.Login;
 import com.company.forms.post.Post;
 import com.company.dto.PostDTO;
 import com.company.dto.UserDTO;
+import com.company.forms.view.ViewPost;
 import com.company.service.PostService;
 import net.miginfocom.swing.*;
 
@@ -33,15 +33,30 @@ public class Dashboard extends JFrame {
     }
 
     private void addPosts() {
-        setLayout(new BorderLayout());
+        int postIndex = 2;
         for (PostDTO postDTO : postDTOList) {
-            JTextArea jta = new JTextArea(postDTO.getPostText(), 3, 10);
+            JTextArea jta = new JTextArea(postDTO.getPostText());
             jta.setEditable(false);
-            JScrollPane scrollPane = new JScrollPane(jta,
-                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            this.add(scrollPane, BorderLayout.NORTH);
+            jta.setRows(3);
+            jta.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    viewPostMouseClicked(e, postDTO);
+                }
+            });
+            JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.setViewportView(jta);
+            getContentPane().add(jScrollPane, "cell 1 " + postIndex + " 25 4");
+            postIndex += 5;
         }
+    }
+
+    private void viewPostMouseClicked(MouseEvent e, PostDTO postDTO) {
+        JFrame viewPostFrame = new ViewPost(user, postDTO);
+        viewPostFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewPostFrame.setSize(400, 400);
+        viewPostFrame.setVisible(true);
+        this.dispose();
     }
 
     private void newPostLabelMouseClicked(MouseEvent e) {
@@ -108,7 +123,7 @@ public class Dashboard extends JFrame {
                 newPostLabelMouseClicked(e);
             }
         });
-        contentPane.add(newPostLabel, "cell 14 0 3 1");
+        contentPane.add(newPostLabel, "cell 17 0 3 1");
 
         //---- logoutLabel ----
         logoutLabel.setText("Logout");
@@ -118,7 +133,7 @@ public class Dashboard extends JFrame {
                 logoutLabelMouseClicked(e);
             }
         });
-        contentPane.add(logoutLabel, "cell 18 0");
+        contentPane.add(logoutLabel, "cell 20 0");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
