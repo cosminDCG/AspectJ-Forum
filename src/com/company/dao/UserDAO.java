@@ -48,6 +48,34 @@ public class UserDAO {
         return userDTO;
     }
 
+    public UserDTO getUserById(int id) {
+
+        UserDTO userDTO = null;
+        String sqlSelect = "" +
+                "SELECT " +
+                " * " +
+                "FROM utilizatori " +
+                "WHERE user_id = ?";
+
+        try {
+            PreparedStatement ps = dbConnection.prepareStatement(sqlSelect);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                userDTO = new UserDTO();
+                userDTO.setUserId(rs.getInt("user_id"));
+                userDTO.setFirstName(rs.getString("first_name"));
+                userDTO.setLastName(rs.getString("last_name"));
+                userDTO.setEmail(rs.getString("email"));
+                userDTO.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userDTO;
+    }
+
     public void addUser(UserDTO userDTO) {
 
         String sqlInsert = "" +

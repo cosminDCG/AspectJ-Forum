@@ -10,7 +10,7 @@ public aspect CommAspect {
     Logger LOG = Logger.getLogger("com.company");
 
     pointcut callAddComment(CommDTO commDTO):
-                call(* CommService.addComment(CommDTO)) && args(commDTO);
+                call(* CommService.addComment(..)) && args(commDTO);
 
     before(CommDTO commDTO): callAddComment(commDTO) {
         LOG.log(Level.INFO, "Context: " + thisJoinPoint.getSignature() + " - " +

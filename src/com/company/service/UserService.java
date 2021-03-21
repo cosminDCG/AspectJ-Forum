@@ -21,6 +21,10 @@ public class UserService {
         return UserDAO.getInstance().getUserByEmail(email);
     }
 
+    public UserDTO getUserById(int id) {
+        return UserDAO.getInstance().getUserById(id);
+    }
+
     public void addUser(UserDTO userDTO) {
         UserDAO.getInstance().addUser(userDTO);
     }

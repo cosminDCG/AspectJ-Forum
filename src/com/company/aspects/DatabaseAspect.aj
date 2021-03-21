@@ -19,7 +19,7 @@ public aspect DatabaseAspect {
         LOG.log(Level.INFO, "Connection to database succeeded");
     }
 
-    after() throwing(RuntimeException e): getDbConnection() {
+    after() throwing(Exception e): getDbConnection() {
         LOG.log(Level.SEVERE, e.getMessage());
     }
 }

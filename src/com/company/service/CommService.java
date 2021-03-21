@@ -20,6 +20,10 @@ public class CommService {
     }
 
     public List<CommDTO> getCommentsByPostId(int postId) {
-        return CommDAO.getInstance().getCommentsByPostId(postId);
+        List<CommDTO> comments = CommDAO.getInstance().getCommentsByPostId(postId);
+        for (CommDTO commDTO : comments) {
+            commDTO.setUser(UserService.getInstance().getUserById(commDTO.getUser().getUserId()));
+        }
+        return comments;
     }
 }

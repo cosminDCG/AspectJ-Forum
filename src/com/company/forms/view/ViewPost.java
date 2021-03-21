@@ -12,8 +12,12 @@ import com.company.service.CommService;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +42,14 @@ public class ViewPost extends JFrame {
     private void initComments(List<CommDTO> commDTOList) {
         int pos = 5;
         for (CommDTO commDTO : commDTOList) {
-
+            JTextArea jta = new JTextArea(commDTO.getUser().getFirstName() + " " + commDTO.getUser().getLastName() +
+                    ": " +commDTO.getCommText());
+            jta.setEditable(false);
+            jta.setRows(2);
+            JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.setViewportView(jta);
+            getContentPane().add(jScrollPane, "cell 2 " + pos + " 32 2");
+            pos += 5;
         }
 
         JTextField jtf = new JTextField();
@@ -48,6 +59,17 @@ public class ViewPost extends JFrame {
         pos += 5;
 
         JButton button = new JButton("Add comment");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommDTO commDTO = new CommDTO();
+                commDTO.setUser(user);
+                commDTO.setPostId(post.getPostId());
+                commDTO.setCommText(jtf.getText());
+                commDTO.setCommDate(Date.from(Instant.now()));
+                CommService.getInstance().addComment(commDTO);
+            }
+        });
         getContentPane().add(button, "cell 32 " + pos);
     }
 

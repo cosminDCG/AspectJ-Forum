@@ -30,7 +30,7 @@ public class CommDAO {
             ps.setInt(1, commDTO.getPostId());
             ps.setInt(2, commDTO.getUser().getUserId());
             ps.setString(3, commDTO.getCommText());
-            ps.setDate(4, (Date) commDTO.getCommDate());
+            ps.setDate(4, new Date(commDTO.getCommDate().getTime()));
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
